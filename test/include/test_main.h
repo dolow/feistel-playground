@@ -1,10 +1,10 @@
-#ifndef FIESTELXOR_TEST_MAIN_H
-#define FIESTELXOR_TEST_MAIN_H
+#ifndef FEISTELXOR_TEST_MAIN_H
+#define FEISTELXOR_TEST_MAIN_H
 
 #include <gtest/gtest.h>
 
-class FielstelXorTest : public ::testing::Test
+class FeilstelXorTest : public ::testing::Test
 {
 };
 
-#endif // FIESTELXOR_TEST_MAIN_H
+#endif // FEISTELXOR_TEST_MAIN_H

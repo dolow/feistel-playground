@@ -38,7 +38,7 @@ void generate_key()
     }
 }
 
-TEST_F(FielstelXorTest, RoundForward)
+TEST_F(FeilstelXorTest, RoundForward)
 {
     generate_key();
 
@@ -63,7 +63,7 @@ TEST_F(FielstelXorTest, RoundForward)
     ASSERT_TRUE(encrypted);
 }
 
-TEST_F(FielstelXorTest, RoundBackward)
+TEST_F(FeilstelXorTest, RoundBackward)
 {
     generate_key();
 
@@ -106,7 +106,7 @@ TEST_F(FielstelXorTest, RoundBackward)
     }
 }
 
-TEST_F(FielstelXorTest, Encrypt)
+TEST_F(FeilstelXorTest, Encrypt)
 {
     generate_key();
 
@@ -126,7 +126,7 @@ TEST_F(FielstelXorTest, Encrypt)
     ASSERT_TRUE(encrypted);
 }
 
-TEST_F(FielstelXorTest, Decrypt)
+TEST_F(FeilstelXorTest, Decrypt)
 {
     generate_key();
 
@@ -141,7 +141,7 @@ TEST_F(FielstelXorTest, Decrypt)
 }
 
 
-TEST_F(FielstelXorTest, EncryptCBC)
+TEST_F(FeilstelXorTest, EncryptCBC)
 {
     generate_key();
 
@@ -160,7 +160,7 @@ TEST_F(FielstelXorTest, EncryptCBC)
     ASSERT_TRUE(encrypted);
 }
 
-TEST_F(FielstelXorTest, DecryptCBC)
+TEST_F(FeilstelXorTest, DecryptCBC)
 {
     generate_key();
 
@@ -175,7 +175,7 @@ TEST_F(FielstelXorTest, DecryptCBC)
     }
 }
 
-TEST_F(FielstelXorTest, EncryptECB)
+TEST_F(FeilstelXorTest, EncryptECB)
 {
     generate_key();
 
@@ -194,7 +194,7 @@ TEST_F(FielstelXorTest, EncryptECB)
     ASSERT_TRUE(encrypted);
 }
 
-TEST_F(FielstelXorTest, DecryptECB)
+TEST_F(FeilstelXorTest, DecryptECB)
 {
     generate_key();
 

@@ -52,7 +52,7 @@ TEST_F(FielstelXorTest, RoundForward)
     memcpy(pt1, test_round_l, HALF_BLOCK_SIZE);
     memcpy(pt2, test_round_r, HALF_BLOCK_SIZE);
 
-    round_forward(key_part, pt1, pt2);
+    ROUND_FORWARD(key_part, pt1, pt2);
     for (int j = 0; j < HALF_BLOCK_SIZE; j++) {
         if (pt1[j] != test_round_l[j]) {
             encrypted = true;
@@ -75,13 +75,13 @@ TEST_F(FielstelXorTest, RoundBackward)
     memcpy(pt2, test_round_r, HALF_BLOCK_SIZE);
 
     memcpy(key_part, test_key_block, HALF_BLOCK_SIZE);
-    round_forward(key_part, pt1, pt2);
+    ROUND_FORWARD(key_part, pt1, pt2);
     memcpy(key_part, test_key_block + HALF_BLOCK_SIZE, HALF_BLOCK_SIZE);
-    round_forward(key_part, pt1, pt2);
+    ROUND_FORWARD(key_part, pt1, pt2);
 
-    round_backward(key_part, pt1, pt2);
+    ROUND_BACKWORD(key_part, pt1, pt2);
     memcpy(key_part, test_key_block, HALF_BLOCK_SIZE);
-    round_backward(key_part, pt1, pt2);
+    ROUND_BACKWORD(key_part, pt1, pt2);
 
     for (int i = 0; i < HALF_BLOCK_SIZE; i++) {
         ASSERT_EQ(pt1[i], test_round_l[i]);
@@ -93,11 +93,11 @@ TEST_F(FielstelXorTest, RoundBackward)
 
     for (int i = 1; i <= ROUND_COUNT; i++) {
         memcpy(key_part, test_key_block + ((i - 1) * HALF_BLOCK_SIZE), HALF_BLOCK_SIZE);
-        round_forward(key_part, pt1, pt2);
+        ROUND_FORWARD(key_part, pt1, pt2);
     }
     for (int i = ROUND_COUNT; i > 0; i--) {
         memcpy(key_part, test_key_block + ((i - 1) * HALF_BLOCK_SIZE), HALF_BLOCK_SIZE);
-        round_backward(key_part, pt1, pt2);
+        ROUND_BACKWORD(key_part, pt1, pt2);
     }
 
     for (int i = 0; i < HALF_BLOCK_SIZE; i++) {
@@ -113,7 +113,7 @@ TEST_F(FielstelXorTest, Encrypt)
     unsigned char ct_block[BLOCK_SIZE];
     unsigned char dt_block[BLOCK_SIZE];
 
-    encrypt(test_key_block, test_pt_block, ct_block);
+    ENCRYPT(test_key_block, test_pt_block, ct_block);
 
     bool encrypted = false;
     for (int i = 0; i < BLOCK_SIZE; i++) {
@@ -133,8 +133,8 @@ TEST_F(FielstelXorTest, Decrypt)
     unsigned char ct_block[BLOCK_SIZE];
     unsigned char dt_block[BLOCK_SIZE];
 
-    encrypt(test_key_block, test_pt_block, ct_block);
-    decrypt(test_key_block, ct_block, dt_block);
+    ENCRYPT(test_key_block, test_pt_block, ct_block);
+    DECRYPT(test_key_block, ct_block, dt_block);
 
     for (int i = 0; i < BLOCK_SIZE; i++)
         ASSERT_EQ(test_pt_block[i], dt_block[i]);
@@ -147,7 +147,7 @@ TEST_F(FielstelXorTest, EncryptCBC)
 
     unsigned char ct_blocks[32];
 
-    encrypt_cbc(test_key_block, test_iv, test_pt_blocks, ct_blocks, 32);
+    ENCRYPT_CBC(test_key_block, test_iv, test_pt_blocks, ct_blocks, 32);
 
     bool encrypted = false;
     for (int i = 0; i < 32; i++) {
@@ -167,8 +167,8 @@ TEST_F(FielstelXorTest, DecryptCBC)
     unsigned char ct_blocks[32];
     unsigned char dt_blocks[32];
 
-    encrypt_cbc(test_key_block, test_iv, test_pt_blocks, ct_blocks, 32);
-    decrypt_cbc(test_key_block, test_iv, ct_blocks, dt_blocks, 32);
+    ENCRYPT_CBC(test_key_block, test_iv, test_pt_blocks, ct_blocks, 32);
+    DECRYPT_CBC(test_key_block, test_iv, ct_blocks, dt_blocks, 32);
 
     for (int i = 0; i < 32; i++) {
         ASSERT_EQ(dt_blocks[i], test_pt_blocks[i]);
@@ -181,7 +181,7 @@ TEST_F(FielstelXorTest, EncryptECB)
 
     unsigned char ct_blocks[32];
 
-    encrypt_ecb(test_key_block, test_pt_blocks, ct_blocks, 32);
+    ENCRYPT_ECB(test_key_block, test_pt_blocks, ct_blocks, 32);
 
     bool encrypted = false;
     for (int i = 0; i < 32; i++) {
@@ -201,8 +201,8 @@ TEST_F(FielstelXorTest, DecryptECB)
     unsigned char ct_blocks[32];
     unsigned char dt_blocks[32];
 
-    encrypt_ecb(test_key_block, test_pt_blocks, ct_blocks, 32);
-    decrypt_ecb(test_key_block, ct_blocks, dt_blocks, 32);
+    ENCRYPT_ECB(test_key_block, test_pt_blocks, ct_blocks, 32);
+    DECRYPT_ECB(test_key_block, ct_blocks, dt_blocks, 32);
 
     for (int i = 0; i < 32; i++) {
         ASSERT_EQ(dt_blocks[i], test_pt_blocks[i]);
